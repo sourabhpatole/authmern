@@ -1,0 +1,49 @@
+.register {
+  display: flex;
+  z-index: 1;
+  height: 100%;
+  width: 40%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 64px -13px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 64px -13px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 64px -13px rgba(0, 0, 0, 0.75);
+}
+
+.register > form {
+  display: grid;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+.register > form > label {
+  margin-top: 10px;
+}
+.register > form > input {
+  width: 400px;
+  padding: 10px;
+  margin-top: 5px;
+}
+.desc {
+  border: 1px solid lightslategray;
+  font-size: 10px;
+  font-weight: 600;
+  height: 1rem;
+  width: 1.5rem;
+  margin-top: -35px;
+  margin-left: 350px;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.register > form > button,
+.login {
+  padding: 10px;
+  margin-top: 20px;
+  width: 200px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
