@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 const Register = () => {
   const [show, setShow] = useState(false);
   const [cshow, setCshow] = useState(false);
-
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     name: "",
     email: "",
@@ -57,6 +57,9 @@ const Register = () => {
           password: "",
           cpassword: "",
         });
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
       }
     }
   };

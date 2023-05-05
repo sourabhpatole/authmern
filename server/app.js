@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const helmet = require("helmet");
 const app = express();
 require("./db/conn");
 const router = require("./routes/router");
@@ -13,6 +14,7 @@ const port = 8009;
 
 app.use(express.json());
 app.use(cookiParser());
+app.use(helmet());
 app.use(cors());
 app.use(router);
 

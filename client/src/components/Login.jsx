@@ -40,7 +40,11 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       const res = await data.json();
-      console.log(res);
+      // console.log(res);
+      if (res.status === 201) {
+        localStorage.setItem("userdatatoken", res.result.token);
+        setInputVal({ ...inputVal, email: "", password: "" });
+      }
     }
   };
 

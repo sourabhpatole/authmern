@@ -1,7 +1,7 @@
 const express = require("express");
 const userdb = require("../models/UserSchema");
 const router = new express.Router();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 // for user registration
 router.post("/register", async (req, res) => {
   const { name, email, password, cpassword } = req.body;
@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(500);
+    res.status(500).json({ error: error.message });
   }
 });
 module.exports = router;
