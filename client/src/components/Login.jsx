@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./mix.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [inputVal, setInputVal] = useState({
     email: "",
@@ -40,9 +41,11 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       const res = await data.json();
-      console.log(res);
+      console.log(res.result.userValid.name);
       if (res.status === 201) {
         localStorage.setItem("userdatatoken", res.result.token);
+        console.log(res.result.token);
+        navigate("/dash");
         setInputVal({ ...inputVal, email: "", password: "" });
       }
     }
