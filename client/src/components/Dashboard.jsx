@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoginContext } from "./ContextProvider/Context";
+import SendMessages from "../pages/SendMessages";
+import SendImage from "../pages/SendImage";
+import SendTemplate from "../pages/SendTemplate";
+import LoginHistoy from "./LoginHistoy";
 
 const Dashboard = () => {
   const [loginData, setLoginData] = useContext(LoginContext);
@@ -42,20 +46,42 @@ const Dashboard = () => {
   };
   console.log(loginData.name);
   return (
-    <div style={{ display: "flex", alignItems: "center" }}>
-      <h1>This is dashboard</h1>
-      <img
-        src="./profilePic.png"
+    <div>
+      <div
+        className="topContent"
         style={{
-          width: "50px",
-          height: "50px",
-          borderRadius: "50%",
-          padding: "10px 20px",
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
         }}
-        alt=""
-      />
-      <button onClick={handleLogout}>Logout</button>
-      <h4>User Email : {loginData.email}</h4>
+      >
+        <img
+          src="./profilePic.png"
+          style={{
+            width: "50px",
+            height: "50px",
+            borderRadius: "50%",
+          }}
+          alt=""
+        />
+        <div className="leftSide">
+          <h4>User Email : {loginData.email}</h4>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      </div>
+      <div
+        className="pagesImport"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "row",
+        }}
+      >
+        <SendTemplate />
+        <LoginHistoy />
+        {/* <SendMessages />
+        <SendImage /> */}
+      </div>
     </div>
   );
 };

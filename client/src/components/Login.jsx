@@ -41,11 +41,13 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
       const res = await data.json();
-      console.log(res.result.userValid.name);
+      // console.log(res.result.userValid.name);
       if (res.status === 201) {
         localStorage.setItem("userdatatoken", res.result.token);
         console.log(res.result.token);
+        // console.log(res);
         navigate("/dash");
+
         setInputVal({ ...inputVal, email: "", password: "" });
       }
     }

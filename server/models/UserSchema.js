@@ -2,41 +2,70 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const validator = require("validator");
+const loginHistory = require("./LoginSchema");
 const keySecret = process.env.JWT_TOKEN;
 // console.log(keySecret);
-const userSchema = new mongoose.Schema({
-  name: {
-    type: "String",
-    required: true,
-    trim: true,
-  },
-  email: {
-    type: "String",
-    required: true,
-    unique: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error("Invalid email");
-      }
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: "String",
+      required: true,
+      trim: true,
     },
-  },
-  password: {
-    type: "String",
-    required: true,
-    minLength: 6,
-  },
-
-  tokens: [
-    {
-      token: {
-        type: "String",
-        required: true,
+    email: {
+      type: "String",
+      required: true,
+      unique: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Invalid email");
+        }
       },
     },
-  ],
-});
+    password: {
+      type: "String",
+      required: true,
+      minLength: 6,
+    },
+    tokens: [
+      {
+        token: {
+          type: "String",
+          required: true,
+        },
+      },
+    ],
+    lastLogins: [
+      {
+        lastLogin: {
+          type: Date,
+          default: Date(),
+        },
+      },
+    ],
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  {
+    timestamps: true,
+    collection: "users",
+  }
+);
 // creating a model
 
+// last login
+userSchema.methods.generateUserHistory = async function () {
+  const date = new Date();
+  this.lastLogins = this.lastLogins.concat({
+    lastLogin: date,
+  });
+  // console.log(date);
+  await this.save();
+
+  return this.lastLogins;
+};
 // password hash
 userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
@@ -59,5 +88,5 @@ userSchema.methods.generateAuthToken = async function () {
   }
 };
 
-const userdb = new mongoose.model("users", userSchema);
+const userdb = new mongoose.model("Users", userSchema);
 module.exports = userdb;
